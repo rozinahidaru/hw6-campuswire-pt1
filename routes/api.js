@@ -31,7 +31,7 @@ router.post('/answer', isAuthenticated, async (req, res) => {
 
   try {
     const qUpdated = await Question.findOneAndUpdate({ _id }, { answer }, { useFindAndModify: true })
-    res.send(`answer added success`)
+    res.send(`answer added success to question ${_id}`)
   } catch (err) {
     res.send(`answer add error with question ${_id}: `, err)
   }
