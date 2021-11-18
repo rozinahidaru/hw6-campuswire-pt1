@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel frontend/index.html"
+    "build": "parcel watch frontend/index.html", 
+    "server": "node backend/server.js", 
+    "dev": "concurrently --kill-others \"npm run build\" \"npm run server\""
   },
   "devDependencies": {
     "eslint-plugin-import": "^2.21.2",
@@ -16,6 +18,7 @@
   "dependencies": {
     "axios": "^0.24.0",
     "babel-eslint": "^10.1.0",
+    "concurrently": "^6.4.0",
     "cookie-session": "^1.4.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.2.0",
@@ -27,5 +30,12 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "browserslist": [
+    "last 3 and_chr versions",
+    "last 3 chrome versions",
+    "last 3 opera versions",
+    "last 3 ios_saf versions",
+    "last 3 safari versions"
+  ]
 }

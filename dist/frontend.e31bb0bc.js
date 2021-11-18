@@ -31670,14 +31670,49 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 
 var _axios = _interopRequireDefault(require("axios"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var App = function App() {
-  return /*#__PURE__*/_react.default.createElement("h1", null, "Your react app!");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const App = () => {
+  const [data, setData] = (0, _react.useState)([]);
+  const [username, setUsername] = (0, _react.useState)('');
+  const [password, setPassword] = (0, _react.useState)('');
+  const [succeeded, setSucceeded] = (0, _react.useState)(false);
+  (0, _react.useEffect)(async () => {
+    const {
+      data: questions
+    } = await _axios.default.get('/questions/');
+    setData(questions);
+  }, []);
+
+  const createUser = async () => {
+    const {
+      userData
+    } = await _axios.default.post('/user/signup', {
+      username,
+      password
+    });
+
+    if (userData === 'user created') {
+      setSucceeded(true);
+    }
+  };
+
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h1", null, "Your react app!"), /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, data.map(question => /*#__PURE__*/_react.default.createElement("p", null, question.questionText))), "username:", /*#__PURE__*/_react.default.createElement("input", {
+    onChange: e => setUsername(e.target.value)
+  }), /*#__PURE__*/_react.default.createElement("br", null), "password:", /*#__PURE__*/_react.default.createElement("input", {
+    onChange: e => setPassword(e.target.value)
+  }), /*#__PURE__*/_react.default.createElement("button", {
+    type: "button",
+    onClick: createUser
+  }, "create user"), /*#__PURE__*/_react.default.createElement("p", null, "succeeded:", `${succeeded}`));
 };
 
 var _default = App;
@@ -31722,7 +31757,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56510" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57567" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

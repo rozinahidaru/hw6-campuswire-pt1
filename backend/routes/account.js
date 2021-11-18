@@ -4,6 +4,16 @@ const isAuthenticated = require('../middlewares/isAuthenticated')
 const router = express.Router()
 const User = require('../models/user')
 
+router.get('/all', async (req, res) => {
+  try {
+    const users = await User.find()
+    console.log(users)
+    res.json(users)
+  } catch (err) {
+    res.send('fetch all users has problems')
+  }
+})
+
 router.post('/signup', async (req, res, next) => {
   const { username, password } = req.body
   try {

@@ -1,6 +1,8 @@
+/* eslint-disable no-console */
 const express = require('express')
 const mongoose = require('mongoose')
 const session = require('cookie-session')
+const path = require('path')
 
 const AccountRouter = require('./routes/account')
 const ApiRouter = require('./routes/api')
@@ -22,6 +24,8 @@ app.get('/', (req, res) => {
 
 app.use(express.json())
 
+app.use(express.static('dist')) // set the static folder
+
 app.use(session({
   name: 'curr-session',
   keys: ['key1'],
@@ -31,7 +35,17 @@ app.use(session({
 app.use('/account', AccountRouter)
 app.use('/questions', ApiRouter)
 
-app.use(isAuthenticated)
+// set favicon
+app.get('/favicon.ico', (req, res) => {
+  res.status(404).send()
+})
+
+// set the initial entry point
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist/index.html'))
+})
+
+// app.use(isAuthenticated)
 
 app.use((err, req, res, next) => {
   if (res.headersSent) {
