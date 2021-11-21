@@ -29,18 +29,13 @@ const App = () => {
     }
   }
 
+  const logoutUser = async () => {
+    
+  }
+
   return (
     <>
       <h1>Campuswire Lite</h1>
-      {/* <>
-        {data.map(q => (
-          <p>
-            {q.questionText}
-            {q.author}
-            {q.answer}
-          </p>
-        ))}
-      </> */}
 
       <Question />
 
@@ -57,6 +52,8 @@ const App = () => {
         <br />
         <Link to="signup">Signup</Link>
       </nav>
+
+      <button type="button">Logout</button>
     </>
   )
 }
