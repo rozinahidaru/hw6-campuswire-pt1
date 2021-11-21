@@ -1,5 +1,13 @@
+/* eslint-disable no-shadow */
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Routes,
+} from 'react-router-dom'
 
 const App = () => {
   const [data, setData] = useState([])
@@ -8,24 +16,24 @@ const App = () => {
   const [succeeded, setSucceeded] = useState(false)
 
   useEffect(async () => {
-    const { data: questions } = await axios.get('/questions/')
-    setData(questions)
+    const { data: users } = await axios.get('/account/all')
+    setData(users)
   }, [])
 
   const createUser = async () => {
-    const { userData } = await axios.post('/user/signup', { username, password })
-    if (userData === 'user created') {
+    const { data } = await axios.post('/account/signup', { username, password })
+    if (data === 'user signup success') {
       setSucceeded(true)
     }
   }
 
   return (
     <>
-      <h1>Your react app!</h1>
+      <h1>Campuswire Lite</h1>
       <>
-        {data.map(question => (
+        {data.map(user => (
           <p>
-            {question.questionText}
+            {user.username}
           </p>
         ))}
       </>
@@ -45,8 +53,17 @@ const App = () => {
       <button type="button" onClick={createUser}>create user</button>
       <p>
         succeeded:
-        {`${succeeded}`}
+        {` ${succeeded}`}
       </p>
+
+      {/* <Router>
+        <Link to="/login">Login</Link>
+      </Router> */}
+      <nav>
+        <Link to="login">Login</Link>
+        <br />
+        <Link to="signup">Signup</Link>
+      </nav>
     </>
   )
 }
