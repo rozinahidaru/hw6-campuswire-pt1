@@ -33742,7 +33742,7 @@ module.exports.default = axios;
 
 },{"./utils":"../node_modules/axios/lib/utils.js","./helpers/bind":"../node_modules/axios/lib/helpers/bind.js","./core/Axios":"../node_modules/axios/lib/core/Axios.js","./core/mergeConfig":"../node_modules/axios/lib/core/mergeConfig.js","./defaults":"../node_modules/axios/lib/defaults.js","./cancel/Cancel":"../node_modules/axios/lib/cancel/Cancel.js","./cancel/CancelToken":"../node_modules/axios/lib/cancel/CancelToken.js","./cancel/isCancel":"../node_modules/axios/lib/cancel/isCancel.js","./env/data":"../node_modules/axios/lib/env/data.js","./helpers/spread":"../node_modules/axios/lib/helpers/spread.js","./helpers/isAxiosError":"../node_modules/axios/lib/helpers/isAxiosError.js"}],"../node_modules/axios/index.js":[function(require,module,exports) {
 module.exports = require('./lib/axios');
-},{"./lib/axios":"../node_modules/axios/lib/axios.js"}],"src/components/App.js":[function(require,module,exports) {
+},{"./lib/axios":"../node_modules/axios/lib/axios.js"}],"src/components/Question.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -33762,49 +33762,20 @@ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "functio
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-/* eslint-disable no-shadow */
-const App = () => {
+const Question = () => {
   const [data, setData] = (0, _react.useState)([]);
-  const [username, setUsername] = (0, _react.useState)('');
-  const [password, setPassword] = (0, _react.useState)('');
-  const [succeeded, setSucceeded] = (0, _react.useState)(false);
   (0, _react.useEffect)(async () => {
     const {
-      data: users
-    } = await _axios.default.get('/account/all');
-    setData(users);
+      data: questions
+    } = await _axios.default.get('/questions/');
+    setData(questions);
   }, []);
-
-  const createUser = async () => {
-    const {
-      data
-    } = await _axios.default.post('/account/signup', {
-      username,
-      password
-    });
-
-    if (data === 'user signup success') {
-      setSucceeded(true);
-    }
-  };
-
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h1", null, "Campuswire Lite"), /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, data.map(user => /*#__PURE__*/_react.default.createElement("p", null, user.username))), "username:", /*#__PURE__*/_react.default.createElement("input", {
-    onChange: e => setUsername(e.target.value)
-  }), /*#__PURE__*/_react.default.createElement("br", null), "password:", /*#__PURE__*/_react.default.createElement("input", {
-    onChange: e => setPassword(e.target.value)
-  }), /*#__PURE__*/_react.default.createElement("button", {
-    type: "button",
-    onClick: createUser
-  }, "create user"), /*#__PURE__*/_react.default.createElement("p", null, "succeeded:", ` ${succeeded}`), /*#__PURE__*/_react.default.createElement("nav", null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
-    to: "login"
-  }, "Login"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
-    to: "signup"
-  }, "Signup")));
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h3", null, "Questions"), /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, data.map(q => /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h5", null, q.questionText), /*#__PURE__*/_react.default.createElement("h7", null, "Author:", ' ', q.author), /*#__PURE__*/_react.default.createElement("p", null, "Answer:", ' ', q.answer)))));
 };
 
-var _default = App;
+var _default = Question;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/index.js"}],"src/components/Login.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/index.js"}],"src/components/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -33817,6 +33788,62 @@ var _react = _interopRequireWildcard(require("react"));
 var _axios = _interopRequireDefault(require("axios"));
 
 var _reactRouterDom = require("react-router-dom");
+
+var _Question = _interopRequireDefault(require("./Question"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+/* eslint-disable no-shadow */
+const App = () => {
+  const [data, setData] = (0, _react.useState)([]);
+  const [loggedIn, setLoggedIn] = (0, _react.useState)(false);
+  (0, _react.useEffect)(async () => {
+    const {
+      data: questions
+    } = await _axios.default.get('/questions/');
+    setData(questions);
+  }, []);
+
+  const isLoggedIn = async () => {
+    const {
+      data
+    } = await _axios.default.post('/account/');
+
+    if (data === 'no user logged in') {
+      setLoggedIn(false);
+    } else {
+      setLoggedIn(true);
+    }
+  };
+
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h1", null, "Campuswire Lite"), /*#__PURE__*/_react.default.createElement(_Question.default, null), /*#__PURE__*/_react.default.createElement("p", null, "user logged in:", ` ${loggedIn}`), /*#__PURE__*/_react.default.createElement("nav", null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    to: "login"
+  }, "Login"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    to: "signup"
+  }, "Signup")));
+};
+
+var _default = App;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","./Question":"src/components/Question.js"}],"src/components/Login.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _axios = _interopRequireDefault(require("axios"));
+
+var _reactRouterDom = require("react-router-dom");
+
+var _App = _interopRequireDefault(require("./App"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -33829,6 +33856,7 @@ const Login = () => {
   const [username, setUsername] = (0, _react.useState)('');
   const [password, setPassword] = (0, _react.useState)('');
   const [loginSuccess, setSuccess] = (0, _react.useState)(false);
+  const navigate = (0, _reactRouterDom.useNavigate)();
 
   const loginUser = async () => {
     const {
@@ -33840,8 +33868,9 @@ const Login = () => {
 
     if (data === 'user login successful') {
       setSuccess(true);
+      navigate('../');
     } else {
-      alert('login error');
+      alert('incorrect username or password');
     }
   };
 
@@ -33853,7 +33882,7 @@ const Login = () => {
     type: "button",
     onClick: loginUser
   }, "login"), /*#__PURE__*/_react.default.createElement("p", null, "succeeded:", ` ${loginSuccess}`), /*#__PURE__*/_react.default.createElement("nav", null, /*#__PURE__*/_react.default.createElement("p", null, "Don't have an account?", /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
-    to: "signup"
+    to: "../signup"
   }, " Sign up!")), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
     to: "/"
   }, "Home")));
@@ -33861,7 +33890,7 @@ const Login = () => {
 
 var _default = Login;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/index.js"}],"src/components/Signup.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","./App":"src/components/App.js"}],"src/components/Signup.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -33885,6 +33914,7 @@ const Signup = () => {
   const [username, setUsername] = (0, _react.useState)('');
   const [password, setPassword] = (0, _react.useState)('');
   const [signupSuccess, setSuccess] = (0, _react.useState)(false);
+  const navigate = (0, _reactRouterDom.useNavigate)();
 
   const createUser = async () => {
     const {
@@ -33896,6 +33926,9 @@ const Signup = () => {
 
     if (data === 'user signup success') {
       setSuccess(true);
+      navigate('../');
+    } else {
+      alert('signup error');
     }
   };
 
@@ -33907,7 +33940,7 @@ const Signup = () => {
     type: "button",
     onClick: createUser
   }, "signup"), /*#__PURE__*/_react.default.createElement("p", null, "succeeded:", ` ${signupSuccess}`), /*#__PURE__*/_react.default.createElement("nav", null, /*#__PURE__*/_react.default.createElement("p", null, "Already have an account?", /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
-    to: "../../login"
+    to: "../login"
   }, " Login here!")), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
     to: "/"
   }, "Home")));
@@ -33970,7 +34003,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60000" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52294" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

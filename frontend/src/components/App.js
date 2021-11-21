@@ -9,51 +9,44 @@ import {
   Routes,
 } from 'react-router-dom'
 
+import Question from './Question'
+
 const App = () => {
   const [data, setData] = useState([])
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [succeeded, setSucceeded] = useState(false)
+  const [loggedIn, setLoggedIn] = useState(false)
 
   useEffect(async () => {
-    const { data: users } = await axios.get('/account/all')
-    setData(users)
+    const { data: questions } = await axios.get('/questions/')
+    setData(questions)
   }, [])
 
-  const createUser = async () => {
-    const { data } = await axios.post('/account/signup', { username, password })
-    if (data === 'user signup success') {
-      setSucceeded(true)
+  const isLoggedIn = async () => {
+    const { data } = await axios.post('/account/')
+    if (data === 'no user logged in') {
+      setLoggedIn(false)
+    } else {
+      setLoggedIn(true)
     }
   }
 
   return (
     <>
       <h1>Campuswire Lite</h1>
-      <>
-        {data.map(user => (
+      {/* <>
+        {data.map(q => (
           <p>
-            {user.username}
+            {q.questionText}
+            {q.author}
+            {q.answer}
           </p>
         ))}
-      </>
-      username:
-      <input onChange={e => setUsername(e.target.value)} />
-      <br />
-      password:
-      <input onChange={e => setPassword(e.target.value)} />
-      {/* <button
-        type="button"
-        onClick={() => {
-          axios.post('/user/signup', { username, password })
-        }}
-      >
-        create user
-      </button> */}
-      <button type="button" onClick={createUser}>create user</button>
+      </> */}
+
+      <Question />
+
       <p>
-        succeeded:
-        {` ${succeeded}`}
+        user logged in:
+        {` ${loggedIn}`}
       </p>
 
       {/* <Router>

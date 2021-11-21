@@ -13,6 +13,15 @@ router.get('/all', async (req, res) => {
   }
 })
 
+router.post('/', (req, res) => {
+  const { username } = req.session
+  if (username && username !== '') {
+    res.send(`${username} is logged in`)
+  } else {
+    res.send('no user logged in')
+  }
+})
+
 router.post('/signup', async (req, res, next) => {
   const { username, password } = req.body
   try {

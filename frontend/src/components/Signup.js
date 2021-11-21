@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Signup = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [signupSuccess, setSuccess] = useState(false)
 
+  const navigate = useNavigate()
+
   const createUser = async () => {
     const { data } = await axios.post('/account/signup', { username, password })
     if (data === 'user signup success') {
       setSuccess(true)
+      navigate('../')
+    } else {
+      alert('signup error')
     }
   }
 
@@ -35,7 +40,7 @@ const Signup = () => {
       <nav>
         <p>
           Already have an account?
-          <Link to="../../login"> Login here!</Link>
+          <Link to="../login"> Login here!</Link>
         </p>
         <br />
         <Link to="/">Home</Link>
