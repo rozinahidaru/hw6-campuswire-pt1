@@ -27,22 +27,21 @@ const App = () => {
     } else {
       setLoggedIn(true)
     }
+    return loggedIn
   }
 
   const logoutUser = async () => {
-    
+    const { data } = await axios.post('/account/logout')
+    if (data === 'user is logged out') {
+      setLoggedIn(false)
+    }
   }
 
   return (
     <>
       <h1>Campuswire Lite</h1>
 
-      <Question />
-
-      <p>
-        user logged in:
-        {` ${loggedIn}`}
-      </p>
+      <Question isLoggedIn={isLoggedIn} />
 
       {/* <Router>
         <Link to="/login">Login</Link>
@@ -52,8 +51,13 @@ const App = () => {
         <br />
         <Link to="signup">Signup</Link>
       </nav>
+      <br />
+      <button type="button" onClick={logoutUser}>Logout</button>
 
-      <button type="button">Logout</button>
+      <p>
+        user logged in:
+        {` ${loggedIn}`}
+      </p>
     </>
   )
 }
