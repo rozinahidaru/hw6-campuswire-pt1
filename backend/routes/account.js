@@ -16,7 +16,7 @@ router.get('/all', async (req, res) => {
 router.post('/', (req, res) => {
   const { username } = req.session
   if (username && username !== '') {
-    res.send(`${username} is logged in`)
+    res.send(username)
   } else {
     res.send('no user logged in')
   }
