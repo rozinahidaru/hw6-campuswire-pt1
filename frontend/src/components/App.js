@@ -7,13 +7,19 @@ import {
   Route,
   Link,
   Routes,
+  useNavigate,
 } from 'react-router-dom'
 
+import '../../App.css'
+
 import Question from './Question'
+import AddQuestion from './AddQuestion'
 
 const App = () => {
   const [data, setData] = useState([])
   const [loggedIn, setLoggedIn] = useState(false)
+  const [showPopup, setShowPopup] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(async () => {
     const { data: questions } = await axios.get('/questions/')
@@ -37,20 +43,31 @@ const App = () => {
     }
   }
 
+  const renderPopup = () => {
+    setShowPopup(true)
+    // showPopup = true
+    console.log(showPopup)
+    return (
+      <AddQuestion show={showPopup} />
+    )
+  }
+
   return (
     <>
       <h1>Campuswire Lite</h1>
 
+      {/* <AddQuestion showPopup={false} /> */}
+      <button type="button" onClick={renderPopup}>Ask a question</button>
+      <button type="button" onClick={() => navigate('/login')}>Log in to ask a question</button>
+      <br />
+      <br />
       <Question isLoggedIn={isLoggedIn} />
 
-      {/* <Router>
-        <Link to="/login">Login</Link>
-      </Router> */}
-      <nav>
+      {/* <nav>
         <Link to="login">Login</Link>
         <br />
         <Link to="signup">Signup</Link>
-      </nav>
+      </nav> */}
       <br />
       <button type="button" onClick={logoutUser}>Logout</button>
 

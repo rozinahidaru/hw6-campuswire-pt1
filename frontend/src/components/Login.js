@@ -26,17 +26,15 @@ const Login = () => {
     <>
       <h1>Login Page</h1>
       <br />
-      username:
+      Username:
+      <br />
       <input onChange={e => setUsername(e.target.value)} />
       <br />
-      password:
+      Password:
+      <br />
       <input onChange={e => setPassword(e.target.value)} />
       <br />
-      <button type="button" onClick={loginUser}>login</button>
-      <p>
-        succeeded:
-        {` ${loginSuccess}`}
-      </p>
+      <button type="button" onClick={loginUser}>Login</button>
       <nav>
         <p>
           Don&#39;t have an account?
