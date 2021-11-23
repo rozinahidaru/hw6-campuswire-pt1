@@ -47,7 +47,7 @@ app.use((err, req, res, next) => {
   if (res.headersSent) {
     return next(err)
   }
-  res.status(500).send({ error: err })
+  res.status(200).send({ error: err })
   res.render('error', { error: err })
   return res
 })

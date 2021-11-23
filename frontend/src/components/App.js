@@ -37,7 +37,6 @@ const App = () => {
         setLoggedIn(true)
         const user = response.data.split(' ')[0]
         setUsername(user)
-        console.log(username)
       }
     })
 
@@ -45,9 +44,17 @@ const App = () => {
   }
 
   useEffect(async () => {
-    const { data: questions } = await axios.get('/questions/')
-    setData(questions)
-    isLoggedIn()
+    const intervalID = setInterval(async () => {
+      try {
+        const { data: questions } = await axios.get('/questions/')
+        setData(questions)
+        isLoggedIn()
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.log(err)
+      }
+    }, 2000)
+    return () => clearInterval(intervalID)
   }, [])
 
   const logoutUser = async () => {
@@ -59,35 +66,45 @@ const App = () => {
     }
   }
 
-  const renderPopup = () => {
-    setShowPopup(true)
-    console.log(showPopup)
-    return (
-      <AddQuestion show={showPopup} />
-    )
-  }
+  // const renderPopup = () => {
+  //   setShowPopup(true)
+  //   console.log(showPopup)
+  //   return (
+  //     <AddQuestion show={showPopup} />
+  //   )
+  // }
 
   return (
     <>
       <h1>Campuswire Lite</h1>
-      <p>{loggedIn ? `Hi ${username}` : ''}</p>
+      <div className="topright">
+        <p>{loggedIn ? `Hi ${username}` : ''}</p>
+        {loggedIn ? <button type="button" onClick={logoutUser}>Logout</button> : <p />}
+      </div>
 
       {/* <AddQuestion showPopup={false} /> */}
       {loggedIn
-        ? <button type="button" onClick={renderPopup}>Ask a question</button>
+        ? <button type="button" onClick={() => setShowPopup(true)}>Ask a question</button>
         : <button type="button" onClick={() => navigate('/login')}>Log in to ask a question</button>}
 
-      <br />
-      <br />
-      <Question isLoggedIn={isLoggedIn} />
+      {
+        showPopup ? (
+          <>
+            <AddQuestion setShowPopup={setShowPopup} />
+          </>
+        )
+          : <p>{showPopup}</p>
+      }
 
-      <br />
-      <button type="button" onClick={logoutUser}>Logout</button>
+      <Question loggedIn={loggedIn} />
 
-      <p>
+      {/* <br />
+      <button type="button" onClick={logoutUser}>Logout</button> */}
+
+      {/* <p>
         user logged in:
         {` ${loggedIn}`}
-      </p>
+      </p> */}
     </>
   )
 }

@@ -96,7 +96,12 @@
       margin: 10px;
   }
 
-  Link {
-    color: white;
+  .topright {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 14px;
   }
+
+
 

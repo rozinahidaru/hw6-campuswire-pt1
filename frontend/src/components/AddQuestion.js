@@ -4,20 +4,20 @@ import axios from 'axios'
 import { Modal } from 'react-bootstrap'
 
 const AddQuestion = props => {
-  const [qText, setQText] = useState('')
-  const [show, setShow] = useState(false)
-  setShow(props)
+  const [questionText, setQText] = useState('')
+  const { setShowPopup } = props
 
   const addQuestion = async () => {
     try {
-      const question = await axios.post('/api/questions/add', { qText })
+      const question = await axios.post('/questions/add', { questionText })
+      setShowPopup(false)
     } catch (err) {
       alert('error when adding question')
     }
   }
 
-  const handleClose = e => {
-    setShow(false)
+  const handleClose = () => {
+    setShowPopup(false)
   }
 
   return (
@@ -38,8 +38,13 @@ const AddQuestion = props => {
     //   <br />
     //   <button type="button">Cancel</button>
     // </>
-    <div style={{ visibility: show ? 'visible' : 'hidden' }}>
-      <h2>Ask a question</h2>
+    // style={{ visibility: show ? 'visible' : 'hidden' }
+    <div>
+      <h3>Ask a question</h3>
+      <textarea rows="8" cols="40" onChange={e => setQText(e.target.value)} />
+      <br />
+      <button type="button" onClick={addQuestion} style={{ marginRight: 8 }}>Ask</button>
+      <button type="button" onClick={handleClose}>Cancel</button>
     </div>
   )
 }
