@@ -53,14 +53,6 @@ const App = () => {
     }
   }
 
-  // const renderPopup = () => {
-  //   setShowPopup(true)
-  //   console.log(showPopup)
-  //   return (
-  //     <AddQuestion show={showPopup} />
-  //   )
-  // }
-
   return (
     <>
       <h1>Campuswire Lite</h1>
