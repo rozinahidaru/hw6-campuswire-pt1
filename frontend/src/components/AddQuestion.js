@@ -21,31 +21,34 @@ const AddQuestion = props => {
   }
 
   return (
-    // <>
-    //   <Modal show={setShow}>
-    //     <Modal.Header closeButton>
-    //       <Modal.Title>Ask a question</Modal.Title>
-    //     </Modal.Header>
-    //     <input onChange={e => setQText(e.target.value)} />
-    //     <br />
-    //     <button type="button" onClick={addQuestion}>Ask</button>
-    //   </Modal>
-    //   <p>Ask a question:</p>
-    //   <br />
-    //   <input onChange={e => setQText(e.target.value)} />
-    //   <br />
-    //   <button type="button" onClick={addQuestion}>Ask</button>
-    //   <br />
-    //   <button type="button">Cancel</button>
-    // </>
-    // style={{ visibility: show ? 'visible' : 'hidden' }
-    <div>
-      <h3>Ask a question</h3>
-      <textarea rows="8" cols="40" onChange={e => setQText(e.target.value)} />
-      <br />
-      <button type="button" onClick={addQuestion} style={{ marginRight: 8 }}>Ask</button>
-      <button type="button" onClick={handleClose}>Cancel</button>
-    </div>
+    <>
+      <>
+        {/* <Modal show={setShowPopup}>
+      <Modal.Header>
+        <Modal.Title>Ask a question</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <textarea rows="8" cols="40" onChange={e => setQText(e.target.value)} />
+        <br />
+      </Modal.Body>
+      <Modal.Footer>
+        <button type="button" onClick={addQuestion}>Ask</button>
+        <button type="button" onClick={handleClose}>Cancel</button>
+      </Modal.Footer>
+    </Modal> */}
+      </>
+      {/* // style={{ visibility: show ? 'visible' : 'hidden' } */}
+      <>
+        <div>
+          <h3>Ask a question</h3>
+          <textarea rows="8" cols="40" onChange={e => setQText(e.target.value)} />
+          <br />
+          <button type="button" onClick={addQuestion} style={{ marginRight: 8 }}>Ask</button>
+          <button type="button" onClick={handleClose}>Cancel</button>
+        </div>
+      </>
+
+    </>
   )
 }
 
