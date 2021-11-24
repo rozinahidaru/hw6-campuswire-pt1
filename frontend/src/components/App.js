@@ -1,15 +1,7 @@
 /* eslint-disable no-alert */
-/* eslint-disable no-shadow */
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Routes,
-  useNavigate,
-} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import '../../App.css'
 
@@ -25,12 +17,6 @@ const App = () => {
 
   const isLoggedIn = async () => {
     await axios.post('/account/').then(response => {
-      // console.log(response.data)
-      // console.log(response.data.split(' ')[0])
-      // const user = response.data.split(' ')[0]
-      // setUsername(user)
-      // console.log(typeof (response.data.split(' ')[0]))
-      // console.log(username)
       if (response.data === 'no user logged in') {
         setLoggedIn(false)
       } else {
@@ -58,6 +44,7 @@ const App = () => {
   }, [])
 
   const logoutUser = async () => {
+    // eslint-disable-next-line no-shadow
     const { data } = await axios.post('/account/logout')
     if (data === 'user is logged out') {
       setLoggedIn(false)
@@ -82,7 +69,6 @@ const App = () => {
         {loggedIn ? <button type="button" onClick={logoutUser}>Logout</button> : <p />}
       </div>
 
-      {/* <AddQuestion showPopup={false} /> */}
       {loggedIn
         ? <button type="button" onClick={() => setShowPopup(true)}>Ask a question</button>
         : <button type="button" onClick={() => navigate('/login')}>Log in to ask a question</button>}
@@ -96,15 +82,12 @@ const App = () => {
           : <p>{showPopup}</p>
       }
 
-      <Question loggedIn={loggedIn} />
+      <h2>Questions</h2>
 
-      {/* <br />
-      <button type="button" onClick={logoutUser}>Logout</button> */}
+      {data.map(q => (
+        <Question loggedIn={loggedIn} question={q} key={q._id} />
+      ))}
 
-      {/* <p>
-        user logged in:
-        {` ${loggedIn}`}
-      </p> */}
     </>
   )
 }

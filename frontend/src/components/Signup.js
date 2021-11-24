@@ -33,10 +33,6 @@ const Signup = () => {
       <input onChange={e => setPassword(e.target.value)} />
       <br />
       <button type="button" onClick={createUser}>signup</button>
-      <p>
-        succeeded:
-        {` ${signupSuccess}`}
-      </p>
 
       <nav>
         <p>
